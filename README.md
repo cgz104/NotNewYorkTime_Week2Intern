@@ -30,7 +30,7 @@ Here's a walkthrough of implemented user stories:
 
 ## Open-source libraries used
 
-- [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
+- [Retrofit](http://square.github.io/retrofit) - A type-safe HTTP client for Android and Java
 - [Glide](https://github.com/bumptech/glide) - An image loading and caching library for Android focused on smooth scrolling
 
 ## License
