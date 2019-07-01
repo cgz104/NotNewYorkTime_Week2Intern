@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.SearchView
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -26,10 +27,14 @@ class MainActivity : AppCompatActivity(), InterfaceArticleSearch.View {
     private var beginDate: String? = null
     private var endDate: String? = null
     private var sort: String? = null
+    private var art: String? = null
+    private var fashion: String? = null
+    private var sport: String? = null
     private var fq: String? = null
+    private var q: String? = null
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+        override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -44,7 +49,8 @@ class MainActivity : AppCompatActivity(), InterfaceArticleSearch.View {
         val scrollListener = object : EndlessRecyclerViewScrollListener(newsList.layoutManager!!) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
                 Log.w("testing", "go here")
-                presenter.searchNews(page, sort, fq, beginDate, endDate)
+                Log.w("page", "$_page")
+                presenter.searchNews(page, sort, fq, beginDate, endDate, q)
                 this@MainActivity._page++
             }
         }
@@ -54,7 +60,7 @@ class MainActivity : AppCompatActivity(), InterfaceArticleSearch.View {
 
         initProgressBar()
 
-        presenter.searchNews(_page, sort, fq, beginDate, endDate)
+        presenter.searchNews(_page, sort, fq, beginDate, endDate, q)
 
         //set swipe refresh
         swipeContainer.setOnRefreshListener { fetchTimelineAsync() }
@@ -81,6 +87,26 @@ class MainActivity : AppCompatActivity(), InterfaceArticleSearch.View {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
+
+        val searchItem = menu?.findItem(R.id.action_search)
+        val searchView = searchItem?.actionView as SearchView
+        searchView.queryHint = "Search View Hint"
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                q = query
+                listOfDoc.clear()
+                presenter.searchNews(_page, sort, fq, beginDate, endDate, q)
+                return false
+            }
+
+        })
+
         return true
     }
 
@@ -111,21 +137,37 @@ class MainActivity : AppCompatActivity(), InterfaceArticleSearch.View {
 
 
                 if(checkbox_art.isChecked){
-                    fq += checkbox_art
+                    art = "Art"
                 }
                 if(checkbox_fashion_style.isChecked){
-                    fq += checkbox_fashion_style
+                    fashion = "Fashion & Style"
                 }
                 if(checkbox_sport.isChecked){
-                    fq += checkbox_sport
+                    sport = "Sport"
                 }
+                fq = "$art,$fashion,$sport"
 
                 beginDate = "${yearView.text}${monthView.text}${dayView.text}"
                 endDate = "${endYearView.text}${endMonthView.text}${endDayView.text}"
-                item_filter_box.visibility = View.GONE
+                _page = 0
                 listOfDoc.clear()
-                presenter.searchNews(_page, sort, fq, beginDate, endDate)
+                presenter.searchNews(_page, sort, fq, beginDate, endDate, q)
+                item_filter_box.visibility = View.GONE
             }
+        }
+
+        btn_reset.setOnClickListener {
+            _page = 0
+            beginDate = null
+            endDate = null
+            sort = null
+            art = null
+            fashion = null
+            sport = null
+            fq = null
+            q = null
+            listOfDoc.clear()
+            presenter.searchNews(_page, sort, fq, beginDate, endDate, q)
         }
 
         btn_cancel.setOnClickListener {
@@ -157,7 +199,8 @@ class MainActivity : AppCompatActivity(), InterfaceArticleSearch.View {
     }
 
     private fun fetchTimelineAsync() {
-        presenter.searchNews(_page, sort, fq, beginDate, endDate)
+        presenter.searchNews(_page, sort, fq, beginDate, endDate, q)
     }
+
 }
 

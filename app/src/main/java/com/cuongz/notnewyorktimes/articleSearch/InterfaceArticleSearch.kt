@@ -13,6 +13,6 @@ interface InterfaceArticleSearch {
     }
 
     interface Presenter {
-        fun searchNews(page: Int?, sort: String?, fq: String?, beginDate: String?, endDate: String?)
+        fun searchNews(page: Int?, sort: String?, fq: String?, beginDate: String?, endDate: String?, q: String?)
     }
 }

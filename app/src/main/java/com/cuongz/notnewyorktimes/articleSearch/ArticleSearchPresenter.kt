@@ -13,7 +13,7 @@ class ArticleSearchPresenter(val view: InterfaceArticleSearch.View): InterfaceAr
 //        view.onSetPresenter(this)
 //    }
 
-    override fun searchNews(page: Int?, sort: String?, fq: String?, beginDate: String?, endDate: String?) {
+    override fun searchNews(page: Int?, sort: String?, fq: String?, beginDate: String?, endDate: String?, q: String?) {
         val mapOption = LinkedHashMap<String, Any>()
         mapOption["page"] = "$page"
         if(sort != null){
@@ -27,6 +27,9 @@ class ArticleSearchPresenter(val view: InterfaceArticleSearch.View): InterfaceAr
         }
         if(endDate != null){
             mapOption["end_date"] = "$endDate"
+        }
+        if(q != null){
+            mapOption["q"] = "$q"
         }
 
         NYTapi.createService().getNews(mapOption).enqueue(object : Callback<NewsResponse>{
