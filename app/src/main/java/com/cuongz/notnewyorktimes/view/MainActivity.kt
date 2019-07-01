@@ -32,9 +32,10 @@ class MainActivity : AppCompatActivity(), InterfaceArticleSearch.View {
     private var sport: String? = null
     private var fq: String? = null
     private var q: String? = null
+    private var isOpen = false
 
 
-        override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -110,42 +111,51 @@ class MainActivity : AppCompatActivity(), InterfaceArticleSearch.View {
         return true
     }
 
-    fun filterNews(menuItem: MenuItem){
-        item_filter_box.visibility = View.VISIBLE
+    fun filterNews(menuItem: MenuItem) {
+        if (!isOpen) {
+            item_filter_box.visibility = View.VISIBLE
+            isOpen = true
+        }
+        else if(isOpen){
+            item_filter_box.visibility = View.GONE
+            isOpen = false
+        }
+
+
 
         btn_ok.setOnClickListener {
             var x = false
             var y = false
 
-            if(dayView.text == "00" || monthView.text == "00" || yearView.text == "0000"){
+            if (dayView.text == "00" || monthView.text == "00" || yearView.text == "0000") {
 
-            }else{
+            } else {
                 x = true
             }
 
-            if(endDayView.text == "00" || endMonthView.text == "00" || endYearView.text == "0000"){
+            if (endDayView.text == "00" || endMonthView.text == "00" || endYearView.text == "0000") {
 
-            }else{
-                 y = true
+            } else {
+                y = true
             }
-            if (x && y){
-                if(sortSpinner.selectedItem.toString() == "Newest"){
+            if (x && y) {
+                if (sortSpinner.selectedItem.toString() == "Newest") {
                     sort = "newest"
-                }else{
+                } else {
                     sort = "oldest"
                 }
 
 
-                if(checkbox_art.isChecked){
+                if (checkbox_art.isChecked) {
                     art = "Art"
                 }
-                if(checkbox_fashion_style.isChecked){
-                    fashion = "Fashion & Style"
+                if (checkbox_fashion_style.isChecked) {
+                    fashion = "Fashion"
                 }
-                if(checkbox_sport.isChecked){
+                if (checkbox_sport.isChecked) {
                     sport = "Sport"
                 }
-                fq = "$art,$fashion,$sport"
+                fq = "$art $fashion $sport"
 
                 beginDate = "${yearView.text}${monthView.text}${dayView.text}"
                 endDate = "${endYearView.text}${endMonthView.text}${endDayView.text}"
@@ -166,6 +176,16 @@ class MainActivity : AppCompatActivity(), InterfaceArticleSearch.View {
             sport = null
             fq = null
             q = null
+            dayView.text = getString(R.string._00)
+            monthView.text = getString(R.string._00)
+            yearView.text = getString(R.string._0000)
+            endDayView.text = getString(R.string._00)
+            endMonthView.text = getString(R.string._00)
+            endYearView.text = getString(R.string._0000)
+            checkbox_art.isChecked = false
+            checkbox_fashion_style.isChecked = false
+            checkbox_sport.isChecked = false
+
             listOfDoc.clear()
             presenter.searchNews(_page, sort, fq, beginDate, endDate, q)
         }
@@ -180,7 +200,7 @@ class MainActivity : AppCompatActivity(), InterfaceArticleSearch.View {
         newFragment.show(supportFragmentManager, "datePicker")
     }
 
-    fun showEndDatePickerDialog(v: View){
+    fun showEndDatePickerDialog(v: View) {
         val newFragment = EndDatePickerFragment()
         newFragment.show(supportFragmentManager, "datePicker")
     }

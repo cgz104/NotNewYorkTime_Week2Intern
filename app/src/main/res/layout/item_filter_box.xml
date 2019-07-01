@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/item_filter_box"
         android:background="@drawable/filter_list_view"
         android:layout_width="300dp"
@@ -14,38 +15,42 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/linearLayoutBeginDate"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="5dp">
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/dayView"
-                android:text="00"
+                android:text="@string/_00"
                 android:padding="6dp"/>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="-"/>
+                android:text="-"
+                tools:ignore="HardcodedText"
+                />
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/monthView"
-                android:text="00"
+                android:text="@string/_00"
                 android:padding="6dp"/>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="-"/>
+                android:text="-"
+                tools:ignore="HardcodedText"
+                />
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/yearView"
-                android:text="0000"
+                android:text="@string/_0000"
                 android:padding="6dp"/>
 
         <Button
@@ -53,7 +58,7 @@
                 android:layout_height="wrap_content"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:id="@+id/btn_pickTime"
-                android:text="Pick time"
+                android:text="@string/pick_time"
                 android:onClick="showDatePickerDialog" />
 
     </LinearLayout>
@@ -66,37 +71,40 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/linearLayoutBeginDate"
             android:id="@+id/linearLayoutEndDate"
-            android:layout_marginLeft="10dp">
+            android:layout_marginStart="10dp">
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/endDayView"
-                android:text="00"
+                android:text="@string/_00"
                 android:padding="6dp"/>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="-"/>
+                android:text="-"
+                tools:ignore="HardcodedText"
+                />
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/endMonthView"
-                android:text="00"
+                android:text="@string/_00"
                 android:padding="6dp"/>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="-"/>
+                android:text="-"
+                tools:ignore="HardcodedText"/>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/endYearView"
-                android:text="0000"
+                android:text="@string/_0000"
                 android:padding="6dp"/>
 
         <Button
@@ -104,7 +112,7 @@
                 android:layout_height="wrap_content"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:id="@+id/btn_pickEndTime"
-                android:text="Pick time"
+                android:text="@string/pick_time"
                 android:onClick="showEndDatePickerDialog" />
 
     </LinearLayout>
@@ -120,7 +128,7 @@
             app:layout_constraintTop_toBottomOf="@id/linearLayoutEndDate"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginStart="10dp"/>
 
     <LinearLayout
             android:layout_width="wrap_content"
@@ -129,22 +137,22 @@
             app:layout_constraintTop_toBottomOf="@id/sortSpinner"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp">
+            android:layout_marginStart="10dp">
 
         <CheckBox android:id="@+id/checkbox_art"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="Arts" />
+                  android:text="@string/arts" />
 
         <CheckBox android:id="@+id/checkbox_fashion_style"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="Fashion and Style" />
+                  android:text="@string/fashion_and_style" />
 
         <CheckBox android:id="@+id/checkbox_sport"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="Sports" />
+                  android:text="@string/sports" />
 
     </LinearLayout>
 
@@ -155,7 +163,7 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toLeftOf="@id/btn_ok"
-            android:text="Cancel"/>
+            android:text="@string/cancel"/>
 
     <Button
             android:layout_width="wrap_content"
@@ -164,7 +172,7 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:text="OK"/>
+            android:text="@string/ok"/>
 
     <Button
             android:layout_width="wrap_content"
@@ -173,6 +181,6 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:text="Reset"/>
+            android:text="@string/reset"/>
 
 </android.support.constraint.ConstraintLayout>

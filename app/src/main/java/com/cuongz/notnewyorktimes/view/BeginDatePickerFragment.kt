@@ -18,22 +18,21 @@ class BeginDatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetList
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
-
         // Create a new instance of DatePickerDialog and return it
-        return DatePickerDialog(activity, this, year, month, day)
+        return DatePickerDialog(requireContext(), this, year, month, day)
     }
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-        val dayView = activity!!.findViewById(R.id.dayView) as TextView
-        val monthView = activity!!.findViewById(R.id.monthView) as TextView
-        val yearView = activity!!.findViewById(R.id.yearView) as TextView
+        val dayView = activity?.findViewById(R.id.dayView) as TextView
+        val monthView = activity?.findViewById(R.id.monthView) as TextView
+        val yearView = activity?.findViewById(R.id.yearView) as TextView
         if(day < 10){
-            dayView.text = "0$day"
+            dayView.text = StringBuilder().append(0).append(day)
         }else{
             dayView.text = day.toString()
         }
-        if (month < 10){
-            monthView.text = "0$month"
+        if (month + 1 < 10){
+            monthView.text = StringBuilder().append(0).append(month + 1)
         }else{
             monthView.text = month.toString()
         }

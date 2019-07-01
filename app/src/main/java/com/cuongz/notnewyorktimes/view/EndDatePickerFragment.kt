@@ -28,12 +28,12 @@ class EndDatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListen
         val monthView = activity!!.findViewById(R.id.endMonthView) as TextView
         val yearView = activity!!.findViewById(R.id.endYearView) as TextView
         if(day < 10){
-            dayView.text = "0$day"
+            dayView.text = StringBuilder().append(0).append(day)
         }else{
             dayView.text = day.toString()
         }
         if (month < 10){
-            monthView.text = "0$month"
+            monthView.text = StringBuilder().append(0).append(month + 1)
         }else{
             monthView.text = month.toString()
         }

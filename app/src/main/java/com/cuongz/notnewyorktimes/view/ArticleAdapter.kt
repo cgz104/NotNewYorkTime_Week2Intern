@@ -30,7 +30,7 @@ class ArticleAdapter(private var listDocs: List<Doc>): RecyclerView.Adapter<Arti
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private var title = itemView.findViewById(R.id.title) as TextView
         private var newsImg = itemView.findViewById(R.id.newsImg) as ImageView
-        private var btn_share = itemView.findViewById(R.id.btn_share) as Button
+        private var btnShare = itemView.findViewById(R.id.btn_share) as Button
 
         fun bind(doc: Doc) {
             title.text = doc.headline?.main
@@ -61,7 +61,7 @@ class ArticleAdapter(private var listDocs: List<Doc>): RecyclerView.Adapter<Arti
 
             }
 
-            btn_share.setOnClickListener {v ->
+            btnShare.setOnClickListener { v ->
                 val intent = Intent(Intent.ACTION_SEND)
                 intent.type = "text/plain"
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Sharing URL")
